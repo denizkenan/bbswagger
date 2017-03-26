@@ -1,0 +1,1158 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "v2",
+    "title": "Redwine Core",
+    "description": "",
+    "license": {
+      "name": "MIT",
+      "url": "http://github.com/gruntjs/grunt/blob/master/LICENSE-MIT"
+    }
+  },
+  "host": "api.bezahlt.de",
+  "basePath": "/v2/",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/auth/session": {
+      "post": {
+        "description": "Accepts api token to get new session token",
+        "tags": [
+          "auth"
+        ],
+        "operationId": "AuthSession",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns session token",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "POST",
+              "uri": "/auth/session",
+              "headers": {
+                "Content-Type": "application/json"
+              },
+              "body": "{  \"apiToken\": \"abcdef00-0000-1234-4321-1234567890ab\"}"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "RAW",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {},
+              "body": "{  \"sessionToken\": \"efcccffd-f861-4913-b152-2061a265a2ac\"}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "AuthSession1",
+            "x-testDescription": "Accepts api token to get new session token"
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/customers/{customer_id}/company": {
+      "patch": {
+        "description": "Updating customers company data",
+        "tags": [
+          "customers"
+        ],
+        "operationId": "CustomersCompanyByCustomerId",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "customer_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "Name of company"
+          },
+          {
+            "name": "legal_form",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "description": "Legal form of company.\nAcceptable values [ \"sole_proprietorship\", \"self_employed\", \"ag\", \"gbr\", \"gmbh\", \"kg\", \"ohg\", \"ug\", \"eg\" ]\n"
+          },
+          {
+            "name": "vat_exempt",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "vat_id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "tax_id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "foundation_date",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "has_beneficial_owners",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "representative_rights",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "single_representative",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "x-unitTests": [],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/customers/{customer_id}/representatives/{beneficial_id}": {
+      "get": {
+        "description": "Get beneficial information",
+        "tags": [
+          "customers"
+        ],
+        "operationId": "CustomersRepresentativesByCustomerId",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "customer_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "beneficial_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "schema": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "x-unitTests": [],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      },
+      "delete": {
+        "description": "Remove beneficial from account",
+        "tags": [
+          "customers"
+        ],
+        "operationId": "CustomersRepresentativesByCustomerId1",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "customer_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "beneficial_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "406": {
+            "description": "Not acceptable",
+            "schema": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "x-unitTests": [],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/customers/{customer_id}/representatives": {
+      "get": {
+        "description": "Get list of representatives",
+        "tags": [
+          "customers"
+        ],
+        "operationId": "CustomersRepresentativesByCustomerId2",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "customer_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "x-unitTests": [],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      },
+      "post": {
+        "description": "Adding a new representative",
+        "tags": [
+          "customers"
+        ],
+        "operationId": "CustomersRepresentativesByCustomerId3",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "customer_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "firstname",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "lasntame",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "email",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "x-unitTests": [],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/customers/{customer_id}/beneficials/{beneficial_id}": {
+      "get": {
+        "description": "Get beneficial information",
+        "tags": [
+          "customers"
+        ],
+        "operationId": "CustomersBeneficialsByCustomerId",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "customer_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "beneficial_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "schema": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "x-unitTests": [],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      },
+      "delete": {
+        "description": "Remove beneficial from account",
+        "tags": [
+          "customers"
+        ],
+        "operationId": "CustomersBeneficialsByCustomerId1",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "customer_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "beneficial_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "406": {
+            "description": "Not acceptable",
+            "schema": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "x-unitTests": [],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/customers/{customer_id}/beneficials": {
+      "get": {
+        "description": "Get list of beneficials",
+        "tags": [
+          "customers"
+        ],
+        "operationId": "CustomersBeneficialsByCustomerId2",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "customer_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "x-unitTests": [],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      },
+      "post": {
+        "description": "Adding a new benifical",
+        "tags": [
+          "customers"
+        ],
+        "operationId": "CustomersBeneficialsByCustomerId3",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "customer_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "firstname",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "lasntame",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "x-unitTests": [],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/customers/{customer_id}/bankaccounts/{id}/default": {
+      "post": {
+        "description": "Set bankaccount to default bankaccount",
+        "tags": [
+          "customers"
+        ],
+        "operationId": "CustomersBankaccountsDefaultByCustomerId",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "customer_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "406": {
+            "description": "Not acceptable",
+            "schema": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "x-unitTests": [],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/customers/{customer_id}/bankaccounts/{id}": {
+      "get": {
+        "description": "Get bankaccount information",
+        "tags": [
+          "customers"
+        ],
+        "operationId": "CustomersBankaccountsByCustomerIdAndId",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "customer_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "schema": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "x-unitTests": [],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      },
+      "delete": {
+        "description": "Remove bankaccount from account",
+        "tags": [
+          "customers"
+        ],
+        "operationId": "CustomersBankaccountsByCustomerIdAndId1",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "customer_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "406": {
+            "description": "Not acceptable",
+            "schema": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "x-unitTests": [],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/customers/{customer_id}/bankaccounts": {
+      "get": {
+        "description": "Get list of bankaccounts",
+        "tags": [
+          "customers"
+        ],
+        "operationId": "CustomersBankaccountsByCustomerId",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "customer_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "x-unitTests": [],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      },
+      "post": {
+        "description": "Adding a new bankaccount",
+        "tags": [
+          "customers"
+        ],
+        "operationId": "CustomersBankaccountsByCustomerId1",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "customer_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "holder_name",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "iban",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "bic",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "bank_name",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "bank_postal_code",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "bank_city",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "bank_country",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "x-unitTests": [],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/customers": {
+      "post": {
+        "description": "Creates new customer",
+        "tags": [
+          "customers"
+        ],
+        "operationId": "Customers",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "salutation",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "firstname",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "lastname",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "email",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "mobilephone",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "acts_on_own_behalf",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "x-unitTests": [],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/invoices/states": {
+      "post": {
+        "description": "Check invoice states. This is meant for partner dashboard to check a list of invoices for\ncurrent state and or if the invoice can be processed. E.g. to display buttons/states accordingly.\nIf invoice is found, optional parameters are ignored and the current state of the invoice\nwill be returned. Otherwise optional parameters are used to check if invoice can be processed.\n",
+        "tags": [
+          "invoices"
+        ],
+        "operationId": "InvoicesStates",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "due_date",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "delivery_date",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "amount_cent",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "currency",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "customer_id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "x-unitTests": [],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/webhooks/{your-webhook-path-for-invoice-state-change-notifications}": {
+      "post": {
+        "description": "Used for signalling state change of an invoice",
+        "tags": [
+          "webhooks"
+        ],
+        "operationId": "Webhooks",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "your-webhook-path-for-invoice-state-change-notifications",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "customer_id",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "invoice_id",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "state",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "message",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "x-unitTests": [],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    }
+  }
+}
