@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "version": "v2",
-    "title": "Redwine Core",
+    "title": "Partner API",
     "description": "",
     "license": {
       "name": "MIT",
